@@ -26,7 +26,7 @@ extern int rand P((void));
  */
 
 extern time_t time P((time_t *));
-extern struct tm *localtime ();
+extern struct tm *localtime (const time_t *time);
 
 /* Terminate the game */
 
@@ -116,9 +116,13 @@ extern int tgetnum P((const char *));
 
 #ifdef MORE_TERMINFO
 
+#ifdef PLAIN_CURSES
+#include <curses.h>
+#else
 #include <cursesX.h>
+#endif
 #include <term.h>
-extern void setupterm P((const char *, int, int));
+extern int setupterm P((const char *, int, int *));
 
 #else /* ! MORE_TERMINFO */
 
